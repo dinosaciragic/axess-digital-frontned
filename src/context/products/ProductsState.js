@@ -13,8 +13,8 @@ const ProductsState = (props) => {
   // Get Products
   const getProducts = async () => {
     try {
-      let res = await axios.get('http://localhost:5000/api/products'); // Move to constant
-      console.log('this is it', res.data);
+      let res = await axios.get('/api/products');
+
       dispatch({
         type: 'getProducts',
         payload: res.data,
