@@ -15,7 +15,9 @@ const Products = () => {
     <div>
       <Fragment>
         {productsRes ? (
-          productsRes.map((product) => <ProductItem product={product} />)
+          productsRes.map((product) => (
+            <ProductItem key={product.id} product={product} />
+          ))
         ) : (
           <div>Please wait...</div>
         )}

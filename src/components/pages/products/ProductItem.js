@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import SuppliersContext from '../../../context/suppliers/suppliersContext';
 
 const ProductItem = ({ product }) => {
-  const { supplierId, name, id, supplier } = product;
+  const suppliersContext = useContext(SuppliersContext);
+
+  const { supplierId, name } = product;
+  const { getSupplierById } = suppliersContext;
+
+  const [supplier, setSupplier] = useState({});
+
+  useEffect(async () => {
+    let tempSupplier = await getSupplierById(supplierId);
+
+    setSupplier(tempSupplier);
+  }, [supplierId]);
 
   return (
     <div
