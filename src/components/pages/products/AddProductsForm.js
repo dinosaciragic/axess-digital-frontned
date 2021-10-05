@@ -1,16 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ProductsContext from '../../../context/products/productsContext';
 import SuppliersContext from '../../../context/suppliers/suppliersContext';
+import CategoriesContext from '../../../context/categories/categoriesContext';
 
 const AddProductsForm = () => {
   const productsContext = useContext(ProductsContext);
   const suppliersContext = useContext(SuppliersContext);
+  const categoriesContext = useContext(CategoriesContext);
 
   const { addProduct, current, clearCurrent, updateProduct } = productsContext;
   const { getSuppliers, supplierRes } = suppliersContext;
+  const { getCategories, categoriesRes } = categoriesContext;
 
   useEffect(() => {
     getSuppliers();
+    getCategories();
+
+    console.log('categories', categoriesRes);
 
     if (current) {
       setProduct(current);
@@ -45,6 +51,7 @@ const AddProductsForm = () => {
     name,
     quantityPerUnit,
     supplierId,
+    categoryId,
     unitPrice,
     unitsInStock,
     unitsOnOrder,
@@ -54,7 +61,6 @@ const AddProductsForm = () => {
 
   /* example of form but without validation */
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value);
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
@@ -103,14 +109,30 @@ const AddProductsForm = () => {
           required
         />
       </label>
+      {/* Supplier select menu */}
       {supplierRes && (
         <label className='text-primary'>
-          Select supplier
+          Select Supplier
           <select value={supplierId} name='supplierId' onChange={onChange}>
             {supplierRes.map((supplier) => {
               return (
                 <option key={supplier.id} value={supplier.id}>
                   {supplier.companyName}
+                </option>
+              );
+            })}
+          </select>
+        </label>
+      )}
+      {/* Categories select menu */}
+      {categoriesRes && (
+        <label className='text-primary'>
+          Select Category
+          <select value={categoryId} name='categoryId' onChange={onChange}>
+            {categoriesRes.map((category) => {
+              return (
+                <option key={category.id} value={category.id}>
+                  {category.name}
                 </option>
               );
             })}
