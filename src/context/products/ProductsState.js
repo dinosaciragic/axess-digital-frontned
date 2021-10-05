@@ -62,12 +62,6 @@ const ProductsState = (props) => {
 
   // Update Product
   const updateProduct = async (product) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json ',
-      },
-    };
-
     try {
       const res = await axios.put(
         '/api/products/' + product.id,

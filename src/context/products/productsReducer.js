@@ -38,7 +38,6 @@ export default (state, action) => {
         ...state,
         current: action.payload,
       };
-
     case 'clearCurrent':
       return {
         ...state,

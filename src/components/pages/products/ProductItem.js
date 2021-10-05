@@ -1,12 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SuppliersContext from '../../../context/suppliers/suppliersContext';
+import ProductsContext from '../../../context/products/productsContext';
 
 const ProductItem = ({ product }) => {
   const suppliersContext = useContext(SuppliersContext);
+  const productsContext = useContext(ProductsContext);
 
   const { supplierId, name } = product;
   const { getSupplierById } = suppliersContext;
+  const { setCurrent, onDelete } = productsContext;
 
   const [supplier, setSupplier] = useState({});
 
@@ -54,8 +57,17 @@ const ProductItem = ({ product }) => {
         </ul>
 
         <p>
-          <button className='btn btn-dark btn-sm'>Edit</button>
-          <button className='btn btn-danger btn-sm'>Delete</button>
+          <button
+            className='btn btn-dark btn-sm'
+            onClick={() => {
+              setCurrent(product);
+            }}
+          >
+            Edit
+          </button>
+          <button className='btn btn-danger btn-sm' onClick={onDelete}>
+            Delete
+          </button>
         </p>
       </div>
 
