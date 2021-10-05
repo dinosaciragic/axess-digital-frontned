@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import OrdersContext from '../../../context/orders/ordersContext';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import OrderItem from './OrderItem';
+import OrdersFilter from './OrdersFilter';
 
 const Orders = () => {
   const ordersContext = useContext(OrdersContext);
@@ -20,7 +21,7 @@ const Orders = () => {
       </div>
 
       <div className='two-block'>
-        {/*  <ProductsFilter /> add orders filter */}
+        <OrdersFilter />
 
         <Fragment>
           {/* start here */}
