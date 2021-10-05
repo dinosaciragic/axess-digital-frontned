@@ -11,7 +11,7 @@ const AddProductsForm = () => {
 
   useEffect(() => {
     getSuppliers();
-    console.log('changes', current);
+
     if (current) {
       setProduct(current);
     } else {
@@ -23,7 +23,7 @@ const AddProductsForm = () => {
         unitsInStock: 0,
         unitsOnOrder: 0,
         reorderLevel: 0,
-        discontinued: false,
+        discontinued: 'false',
         name: '',
       });
     }
@@ -37,7 +37,7 @@ const AddProductsForm = () => {
     unitsInStock: 0,
     unitsOnOrder: 0,
     reorderLevel: 0,
-    discontinued: false,
+    discontinued: 'false',
     name: '',
   });
 
@@ -49,10 +49,12 @@ const AddProductsForm = () => {
     unitsInStock,
     unitsOnOrder,
     reorderLevel,
+    discontinued,
   } = product || {};
 
   /* example of form but without validation */
   const onChange = (e) => {
+    console.log(e.target.name, e.target.value);
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
@@ -163,6 +165,24 @@ const AddProductsForm = () => {
           required
         />
       </label>
+      {/* discontinued radio buttons */}
+      <label className='text-primary'>Discontinued</label> <br />
+      <input
+        type='radio'
+        name='discontinued'
+        value='true'
+        checked={discontinued === 'true'}
+        onChange={onChange}
+      />{' '}
+      Discontinued{' '}
+      <input
+        type='radio'
+        name='discontinued'
+        value='false'
+        checked={discontinued === 'false'}
+        onChange={onChange}
+      />{' '}
+      Not Discontinued
       {/* Submit button */}
       <div>
         <input
