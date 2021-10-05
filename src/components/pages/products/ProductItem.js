@@ -30,11 +30,8 @@ const ProductItem = ({ product }) => {
   };
 
   return (
-    <div
-      className='card bg-light'
-      style={{ display: 'flex', flexWrap: 'wrap' }}
-    >
-      <div style={{ flex: '0 0 50%', padding: '10px' }}>
+    <div className='card bg-light two-block-container'>
+      <div className='two-block'>
         <h3 className='text-primary text-left'>{name} </h3>
 
         <ul className='list'>
@@ -76,7 +73,7 @@ const ProductItem = ({ product }) => {
         </p>
       </div>
 
-      <div style={{ flex: '0 0 50%', padding: '10px' }}>
+      <div className='two-block'>
         <ul className='list'>
           {supplier && supplier.address && (
             <li>

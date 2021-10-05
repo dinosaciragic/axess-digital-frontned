@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/pages/Home';
 import Suppliers from './components/pages/Suppliers';
 import Products from './components/pages/products/Products';
-import Orders from './components/pages/Orders';
+import Orders from './components/pages/orders/Orders';
 
 import ProductsState from './context/products/ProductsState';
 import SuppliersState from './context/suppliers/SuppliersState';
