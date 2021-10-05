@@ -1,11 +1,10 @@
 export default (state, action) => {
   switch (action.type) {
-    case 'supplier': // move to constants
+    case 'getSuppliers': // move to constants
       return {
         ...state,
-        supplier: action.payload,
+        supplierRes: action.payload,
       };
-
     default:
       return state;
   }

@@ -5,10 +5,24 @@ import SuppliersContext from './suppliersContext';
 
 const SuppliersState = (props) => {
   const initialState = {
-    supplier: null,
+    supplierRes: null,
   };
 
   const [state, dispatch] = useReducer(suppliersReducer, initialState);
+
+  // Get Suppliers
+  const getSuppliers = async () => {
+    try {
+      let res = await axios.get('/api/suppliers');
+
+      dispatch({
+        type: 'getSuppliers',
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // Get Supplier by id
   const getSupplierById = async (id) => {
@@ -24,8 +38,9 @@ const SuppliersState = (props) => {
   return (
     <SuppliersContext.Provider
       value={{
-        supplier: state.supplier,
+        supplierRes: state.supplierRes,
         getSupplierById,
+        getSuppliers,
       }}
     >
       {props.children}
