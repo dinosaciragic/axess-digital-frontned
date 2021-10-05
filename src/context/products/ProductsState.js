@@ -49,7 +49,7 @@ const ProductsState = (props) => {
   // Delete Product
   const deleteProduct = async (id) => {
     try {
-      const res = await axios.delete('/api/products/' + id);
+      await axios.delete('/api/products/' + id);
 
       dispatch({
         type: 'deleteProduct',
@@ -107,6 +107,8 @@ const ProductsState = (props) => {
     <ProductsContext.Provider
       value={{
         productsRes: state.productsRes,
+        current: state.current,
+        filtered: state.filtered,
         getProducts,
         addProduct,
         deleteProduct,

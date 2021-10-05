@@ -11,7 +11,7 @@ const AddProductsForm = () => {
 
   useEffect(() => {
     getSuppliers();
-
+    console.log('changes', current);
     if (current) {
       setProduct(current);
     } else {
@@ -59,7 +59,7 @@ const AddProductsForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (current == null || current == undefined) {
+    if (current === null || current === undefined) {
       addProduct(product);
     } else {
       updateProduct(product);

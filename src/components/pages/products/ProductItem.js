@@ -7,9 +7,9 @@ const ProductItem = ({ product }) => {
   const suppliersContext = useContext(SuppliersContext);
   const productsContext = useContext(ProductsContext);
 
-  const { supplierId, name } = product;
+  const { supplierId, name, id } = product;
   const { getSupplierById } = suppliersContext;
-  const { setCurrent, onDelete } = productsContext;
+  const { setCurrent, deleteProduct, clearCurrent } = productsContext;
 
   const [supplier, setSupplier] = useState({});
 
@@ -23,6 +23,11 @@ const ProductItem = ({ product }) => {
 
     fetchData();
   }, [supplierId]);
+
+  const onDelete = () => {
+    deleteProduct(id);
+    clearCurrent();
+  };
 
   return (
     <div
