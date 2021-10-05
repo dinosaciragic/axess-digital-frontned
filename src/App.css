@@ -178,3 +178,7 @@ img {
   color: #333;
   border: #ccc solid 1px;
 }
+
+.grid-2 {
+  grid-template-columns: 1fr;
+}

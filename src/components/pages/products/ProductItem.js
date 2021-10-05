@@ -10,10 +10,15 @@ const ProductItem = ({ product }) => {
 
   const [supplier, setSupplier] = useState({});
 
-  useEffect(async () => {
-    let tempSupplier = await getSupplierById(supplierId);
+  useEffect(() => {
+    // proper way of calling async function in useEffect
+    const fetchData = async () => {
+      let tempSupplier = await getSupplierById(supplierId);
 
-    setSupplier(tempSupplier);
+      setSupplier(tempSupplier);
+    };
+
+    fetchData();
   }, [supplierId]);
 
   return (
@@ -56,41 +61,41 @@ const ProductItem = ({ product }) => {
 
       <div style={{ flex: '0 0 50%', padding: '10px' }}>
         <ul className='list'>
-          {supplier && (
+          {supplier && supplier.address && (
             <li>
               <span className='text-primary'>Street</span>{' '}
               {supplier.address.street}
             </li>
           )}
 
-          {supplier && (
+          {supplier && supplier.address && (
             <li>
               <span className='text-primary'>City</span> {supplier.address.city}
             </li>
           )}
 
-          {supplier && (
+          {supplier && supplier.address && (
             <li>
               <span className='text-primary'>Region</span>{' '}
               {supplier.address.region}
             </li>
           )}
 
-          {supplier && (
+          {supplier && supplier.address && (
             <li>
               <span className='text-primary'>Country</span>{' '}
               {supplier.address.country}
             </li>
           )}
 
-          {supplier && (
+          {supplier && supplier.address && (
             <li>
               <span className='text-primary'>Postal Code</span>{' '}
               {supplier.address.postalCode}
             </li>
           )}
 
-          {supplier && (
+          {supplier && supplier.address && (
             <li>
               <span className='text-primary'>Phone</span>{' '}
               {supplier.address.phone}
