@@ -33,6 +33,17 @@ const ProductsState = (props) => {
     }
   };
 
+  // Get Product by id
+  const getProductById = async (id) => {
+    try {
+      let res = await axios.get('/api/products/' + id);
+
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // Add Product
   const addProduct = async (product) => {
     try {
@@ -119,6 +130,7 @@ const ProductsState = (props) => {
         clearCurrent,
         filterProducts,
         clearFilter,
+        getProductById,
       }}
     >
       {props.children}
