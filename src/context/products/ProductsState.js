@@ -5,11 +5,12 @@ import ProductsContext from './productsContext';
 
 const ProductsState = (props) => {
   const initialState = {
-    productsRes: null,
-    current: null,
-    filtered: null,
+    productsRes: null, // all products
+    current: null, // current product being edited
+    filtered: null, // filtered products in search
   };
 
+  // Config fot POST and PUT requests
   const config = {
     headers: {
       'Content-Type': 'application/json ',

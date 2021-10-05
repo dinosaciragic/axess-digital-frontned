@@ -47,7 +47,6 @@ export default (state, action) => {
       return {
         ...state,
         filtered: state.productsRes.filter((product) => {
-          console.log('here ', product);
           const regex = new RegExp(`${action.payload}`, 'gi'); // gi is to remove case sensitivity
           return product.name.match(regex); // return anything that marches the regex
         }),
