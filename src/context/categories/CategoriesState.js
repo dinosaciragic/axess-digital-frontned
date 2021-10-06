@@ -18,7 +18,7 @@ const CategoriesState = (props) => {
       let res = await axios.get(categoriesApi);
 
       dispatch({
-        type: 'getCategories',
+        type: Constants.GET_CATEGORIES,
         payload: res.data,
       });
     } catch (error) {

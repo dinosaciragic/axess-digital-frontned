@@ -1,3 +1,5 @@
+import * as Constants from '../../shared/Constants';
+
 export default (state, action) => {
   switch (action.type) {
     case 'getProducts': // move to constants
@@ -33,12 +35,12 @@ export default (state, action) => {
         filtered: null,
       };
 
-    case 'setCurrent':
+    case Constants.SET_CURRENT:
       return {
         ...state,
         current: action.payload,
       };
-    case 'clearCurrent':
+    case Constants.CLEAR_CURRENT:
       return {
         ...state,
         current: null,
@@ -51,7 +53,7 @@ export default (state, action) => {
           return product.name.match(regex); // return anything that marches the regex
         }),
       };
-    case 'clearFilter':
+    case Constants.CLEAR_FILTER:
       return {
         ...state,
         filtered: null,

@@ -98,12 +98,12 @@ const ProductsState = (props) => {
 
   // Set Current Product
   const setCurrent = (product) => {
-    dispatch({ type: 'setCurrent', payload: product });
+    dispatch({ type: Constants.SET_CURRENT, payload: product });
   };
 
   // Clear Current Product
   const clearCurrent = () => {
-    dispatch({ type: 'clearCurrent' });
+    dispatch({ type: Constants.CLEAR_CURRENT });
   };
 
   // Filter Products
@@ -113,7 +113,7 @@ const ProductsState = (props) => {
 
   // Clear Filter
   const clearFilter = () => {
-    dispatch({ type: 'clearFilter' });
+    dispatch({ type: Constants.CLEAR_FILTER });
   };
 
   return (

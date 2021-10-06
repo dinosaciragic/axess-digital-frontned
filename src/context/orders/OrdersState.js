@@ -28,7 +28,7 @@ const OrdersState = (props) => {
       let res = await axios.get(ordersApi);
 
       dispatch({
-        type: 'getOrders',
+        type: Constants.GET_ORDERS,
         payload: res.data,
       });
     } catch (error) {
@@ -42,7 +42,7 @@ const OrdersState = (props) => {
       const res = await axios.post(ordersApi, order, config);
 
       dispatch({
-        type: 'addOrder',
+        type: Constants.ADD_ORDER,
         payload: res.data,
       });
     } catch (error) {
@@ -56,7 +56,7 @@ const OrdersState = (props) => {
       await axios.delete(ordersApi + id);
 
       dispatch({
-        type: 'deleteOrder',
+        type: Constants.DELETE_ORDER,
         payload: id,
       });
     } catch (error) {
@@ -70,7 +70,7 @@ const OrdersState = (props) => {
       const res = await axios.put(ordersApi + order.id, order, config);
 
       dispatch({
-        type: 'updateOrder',
+        type: Constants.UPDATE_ORDER,
         payload: res.data,
       });
     } catch (error) {
@@ -80,27 +80,27 @@ const OrdersState = (props) => {
 
   // Clear Orders
   const clearOrders = () => {
-    dispatch({ type: 'clearOrders' });
+    dispatch({ type: Constants.CLEAR_ORDERS });
   };
 
   // Set Current Order
   const setCurrent = (order) => {
-    dispatch({ type: 'setCurrent', payload: order });
+    dispatch({ type: Constants.SET_CURRENT, payload: order });
   };
 
   // Clear Current Order
   const clearCurrent = () => {
-    dispatch({ type: 'clearCurrent' });
+    dispatch({ type: Constants.CLEAR_CURRENT });
   };
 
   // Filter Orders
   const filterOrders = (text) => {
-    dispatch({ type: 'filterOrders', payload: text });
+    dispatch({ type: Constants.FILTER_ORDERS, payload: text });
   };
 
   // Clear Filter
   const clearFilter = () => {
-    dispatch({ type: 'clearFilter' });
+    dispatch({ type: Constants.CLEAR_FILTER });
   };
 
   return (
