@@ -19,7 +19,7 @@ const SuppliersState = (props) => {
       let res = await axios.get(suppliersApi);
 
       dispatch({
-        type: 'getSuppliers',
+        type: Constants.GET_SUPPLIERS,
         payload: res.data,
       });
     } catch (error) {

@@ -16,7 +16,8 @@ export const DELETE_PRODUCT = 'deleteProduct';
 export const UPDATE_PRODUCT = 'updateProduct';
 export const CLEAR_PRODUCTS = 'clearProducts';
 export const FILTER_PRODUCTS = 'filterProducts';
-
+// Suppliers constants
+export const GET_SUPPLIERS = 'getSuppliers';
 // Shared constants
 export const SET_CURRENT = 'setCurrent';
 export const CLEAR_CURRENT = 'clearCurrent';
