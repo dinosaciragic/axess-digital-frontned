@@ -3,6 +3,7 @@ import OrdersContext from '../../../context/orders/ordersContext';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import OrderItem from './OrderItem';
 import OrdersFilter from './OrdersFilter';
+import AddOrdersForm from './AddOrdersForm';
 
 const Orders = () => {
   const ordersContext = useContext(OrdersContext);
@@ -11,13 +12,12 @@ const Orders = () => {
 
   useEffect(() => {
     getOrders();
-    console.log('orders', ordersRes);
   }, []);
 
   return (
     <div className='two-block-container'>
       <div className='two-block'>
-        {/* <AddProductsForm />  add orders form*/}
+        <AddOrdersForm />
       </div>
 
       <div className='two-block'>

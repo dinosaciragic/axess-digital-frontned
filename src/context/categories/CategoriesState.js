@@ -27,9 +27,11 @@ const CategoriesState = (props) => {
   // Get Categpry by id
   const getCategoryById = async (id) => {
     try {
-      let res = await axios.get('/api/categories/' + id);
+      let res = await axios.get('http://localhost:5000/api/categories/' + id);
 
-      return res.data;
+      if (res.data) {
+        return res.data;
+      }
     } catch (error) {
       console.error(error);
     }

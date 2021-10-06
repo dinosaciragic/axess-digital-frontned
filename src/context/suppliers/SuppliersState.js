@@ -27,9 +27,11 @@ const SuppliersState = (props) => {
   // Get Supplier by id
   const getSupplierById = async (id) => {
     try {
-      let res = await axios.get('/api/suppliers/' + id);
+      let res = await axios.get('http://localhost:5000/api/suppliers/' + id);
 
-      return res.data;
+      if (res.data) {
+        return res.data;
+      }
     } catch (error) {
       console.error(error);
     }

@@ -36,7 +36,11 @@ const OrdersState = (props) => {
   // Add Order
   const addOrder = async (order) => {
     try {
-      const res = await axios.post('/api/orders', order, config);
+      const res = await axios.post(
+        'http://localhost:5000/api/orders',
+        order,
+        config
+      );
 
       dispatch({
         type: 'addOrder',

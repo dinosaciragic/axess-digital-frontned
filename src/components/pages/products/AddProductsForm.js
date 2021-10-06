@@ -16,8 +16,6 @@ const AddProductsForm = () => {
     getSuppliers();
     getCategories();
 
-    console.log('categories', categoriesRes);
-
     if (current) {
       setProduct(current);
     } else {

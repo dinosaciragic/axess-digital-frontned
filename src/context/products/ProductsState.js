@@ -36,9 +36,11 @@ const ProductsState = (props) => {
   // Get Product by id
   const getProductById = async (id) => {
     try {
-      let res = await axios.get('/api/products/' + id);
+      let res = await axios.get('http://localhost:5000/api/products/' + id);
 
-      return res.data;
+      if (res.data) {
+        return res.data;
+      }
     } catch (error) {
       console.error(error);
     }

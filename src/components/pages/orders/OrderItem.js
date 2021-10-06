@@ -24,14 +24,17 @@ const OrderItem = ({ order }) => {
   useEffect(() => {
     // proper way of calling async function in useEffect
     const fetchData = async () => {
-      let tempProduct = await getProductById(details[0].productId); // uses first in array temporarly because I do not know what the intended design was for this specific case
-      let tempSupplier = await getSupplierById(tempProduct.supplierId);
-      let tempCategory = await getCategoryById(tempProduct.categoryId);
+      try {
+        let tempProduct = await getProductById(details[0].productId); // uses first in array temporarly because I do not know what the intended design was for this specific case
+        let tempSupplier = await getSupplierById(tempProduct.supplierId);
+        let tempCategory = await getCategoryById(tempProduct.categoryId);
 
-      console.log(tempCategory);
-      setProduct(tempProduct);
-      setSupplier(tempSupplier);
-      setCategory(tempCategory);
+        setProduct(tempProduct);
+        setSupplier(tempSupplier);
+        setCategory(tempCategory);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchData();
