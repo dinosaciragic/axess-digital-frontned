@@ -13,13 +13,6 @@ const ProductsState = (props) => {
     filtered: null, // filtered products in search
   };
 
-  // Config fot POST and PUT requests
-  const config = {
-    headers: {
-      'Content-Type': 'application/json ',
-    },
-  };
-
   const [state, dispatch] = useReducer(productsReducer, initialState);
 
   // Get Products
@@ -28,7 +21,7 @@ const ProductsState = (props) => {
       let res = await axios.get(productsApi);
 
       dispatch({
-        type: 'getProducts',
+        type: Constants.GET_PRODUCTS,
         payload: res.data,
       });
     } catch (error) {
@@ -52,10 +45,14 @@ const ProductsState = (props) => {
   // Add Product
   const addProduct = async (product) => {
     try {
-      const res = await axios.post(productsApi, product, config);
+      const res = await axios.post(
+        productsApi,
+        product,
+        Constants.POST_PUT_CONFIG
+      );
 
       dispatch({
-        type: 'addProduct',
+        type: Constants.ADD_PRODUCT,
         payload: res.data,
       });
     } catch (error) {
@@ -69,7 +66,7 @@ const ProductsState = (props) => {
       await axios.delete(productsApi + id);
 
       dispatch({
-        type: 'deleteProduct',
+        type: Constants.DELETE_PRODUCT,
         payload: id,
       });
     } catch (error) {
@@ -80,10 +77,14 @@ const ProductsState = (props) => {
   // Update Product
   const updateProduct = async (product) => {
     try {
-      const res = await axios.put(productsApi + product.id, product, config);
+      const res = await axios.put(
+        productsApi + product.id,
+        product,
+        Constants.POST_PUT_CONFIG
+      );
 
       dispatch({
-        type: 'updateProduct',
+        type: Constants.UPDATE_PRODUCT,
         payload: res.data,
       });
     } catch (error) {
@@ -93,7 +94,7 @@ const ProductsState = (props) => {
 
   // Clear Products
   const clearProducts = () => {
-    dispatch({ type: 'clearProducts' });
+    dispatch({ type: Constants.CLEAR_PRODUCTS });
   };
 
   // Set Current Product
@@ -108,7 +109,7 @@ const ProductsState = (props) => {
 
   // Filter Products
   const filterProducts = (text) => {
-    dispatch({ type: 'filterProducts', payload: text });
+    dispatch({ type: Constants.FILTER_PRODUCTS, payload: text });
   };
 
   // Clear Filter

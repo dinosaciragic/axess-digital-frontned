@@ -9,7 +9,21 @@ export const DELETE_ORDER = 'deleteOrder';
 export const UPDATE_ORDER = 'updateOrder';
 export const CLEAR_ORDERS = 'clearOrders';
 export const FILTER_ORDERS = 'filterOrders';
+// Products constants
+export const GET_PRODUCTS = 'getProducts';
+export const ADD_PRODUCT = 'addProduct';
+export const DELETE_PRODUCT = 'deleteProduct';
+export const UPDATE_PRODUCT = 'updateProduct';
+export const CLEAR_PRODUCTS = 'clearProducts';
+export const FILTER_PRODUCTS = 'filterProducts';
+
 // Shared constants
 export const SET_CURRENT = 'setCurrent';
 export const CLEAR_CURRENT = 'clearCurrent';
 export const CLEAR_FILTER = 'clearFilter';
+// Config for POST and PUT requests
+export const POST_PUT_CONFIG = {
+  headers: {
+    'Content-Type': 'application/json ',
+  },
+};

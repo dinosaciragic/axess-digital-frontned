@@ -2,17 +2,17 @@ import * as Constants from '../../shared/Constants';
 
 export default (state, action) => {
   switch (action.type) {
-    case 'getProducts': // move to constants
+    case Constants.GET_PRODUCTS:
       return {
         ...state,
         productsRes: action.payload,
       };
-    case 'addProduct':
+    case Constants.ADD_PRODUCT:
       return {
         ...state,
         productsRes: [action.payload, ...state.productsRes],
       };
-    case 'updateProduct':
+    case Constants.UPDATE_PRODUCT:
       return {
         ...state,
         productsRes: state.productsRes.map(
@@ -20,14 +20,14 @@ export default (state, action) => {
             product.id === action.payload.id ? action.payload : product // If it is the id switch it with action payload
         ),
       };
-    case 'deleteProduct':
+    case Constants.DELETE_PRODUCT:
       return {
         ...state,
         productsRes: state.productsRes.filter(
           (product) => product.id !== action.payload
         ),
       };
-    case 'clearProducts':
+    case Constants.CLEAR_PRODUCTS:
       return {
         ...state,
         productsRes: null,
@@ -45,7 +45,7 @@ export default (state, action) => {
         ...state,
         current: null,
       };
-    case 'filterProducts':
+    case Constants.FILTER_PRODUCTS:
       return {
         ...state,
         filtered: state.productsRes.filter((product) => {

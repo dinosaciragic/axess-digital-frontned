@@ -13,13 +13,6 @@ const OrdersState = (props) => {
     filteredOrders: null, // Filtered orders in search
   };
 
-  // Config fot POST and PUT requests
-  const config = {
-    headers: {
-      'Content-Type': 'application/json ',
-    },
-  };
-
   const [state, dispatch] = useReducer(ordersReducer, initialState);
 
   // Get Orders
@@ -39,7 +32,7 @@ const OrdersState = (props) => {
   // Add Order
   const addOrder = async (order) => {
     try {
-      const res = await axios.post(ordersApi, order, config);
+      const res = await axios.post(ordersApi, order, Constants.POST_PUT_CONFIG);
 
       dispatch({
         type: Constants.ADD_ORDER,
@@ -67,7 +60,11 @@ const OrdersState = (props) => {
   // Update Order
   const updateOrder = async (order) => {
     try {
-      const res = await axios.put(ordersApi + order.id, order, config);
+      const res = await axios.put(
+        ordersApi + order.id,
+        order,
+        Constants.POST_PUT_CONFIG
+      );
 
       dispatch({
         type: Constants.UPDATE_ORDER,
