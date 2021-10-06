@@ -2,8 +2,11 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import ordersReducer from './ordersReducer';
 import OrdersContext from './ordersContext';
+import * as Constants from '../../shared/Constants';
 
 const OrdersState = (props) => {
+  const ordersApi = Constants.API_LINK + 'orders/';
+
   const initialState = {
     ordersRes: null, // All orders
     currentOrder: null, // Current order being odited
@@ -22,7 +25,7 @@ const OrdersState = (props) => {
   // Get Orders
   const getOrders = async () => {
     try {
-      let res = await axios.get('/api/orders');
+      let res = await axios.get(ordersApi);
 
       dispatch({
         type: 'getOrders',
@@ -36,11 +39,7 @@ const OrdersState = (props) => {
   // Add Order
   const addOrder = async (order) => {
     try {
-      const res = await axios.post(
-        'http://localhost:5000/api/orders',
-        order,
-        config
-      );
+      const res = await axios.post(ordersApi, order, config);
 
       dispatch({
         type: 'addOrder',
@@ -54,7 +53,7 @@ const OrdersState = (props) => {
   // Delete Order
   const deleteOrder = async (id) => {
     try {
-      await axios.delete('/api/orders/' + id);
+      await axios.delete(ordersApi + id);
 
       dispatch({
         type: 'deleteOrder',
@@ -68,7 +67,7 @@ const OrdersState = (props) => {
   // Update Order
   const updateOrder = async (order) => {
     try {
-      const res = await axios.put('/api/orders/' + order.id, order, config);
+      const res = await axios.put(ordersApi + order.id, order, config);
 
       dispatch({
         type: 'updateOrder',

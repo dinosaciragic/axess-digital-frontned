@@ -2,8 +2,10 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import categoriesReducer from './categoriesReducer';
 import CategoriesContext from './categoriesContext';
+import * as Constants from '../../shared/Constants';
 
 const CategoriesState = (props) => {
+  const categoriesApi = Constants.API_LINK + 'categories/';
   const initialState = {
     categoriesRes: null,
   };
@@ -13,7 +15,7 @@ const CategoriesState = (props) => {
   // Get Categories
   const getCategories = async () => {
     try {
-      let res = await axios.get('/api/categories');
+      let res = await axios.get(categoriesApi);
 
       dispatch({
         type: 'getCategories',
@@ -27,7 +29,7 @@ const CategoriesState = (props) => {
   // Get Categpry by id
   const getCategoryById = async (id) => {
     try {
-      let res = await axios.get('http://localhost:5000/api/categories/' + id);
+      let res = await axios.get(categoriesApi + id);
 
       if (res.data) {
         return res.data;

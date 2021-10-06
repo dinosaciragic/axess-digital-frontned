@@ -2,8 +2,11 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import suppliersReducer from './suppliersReducer';
 import SuppliersContext from './suppliersContext';
+import * as Constants from '../../shared/Constants';
 
 const SuppliersState = (props) => {
+  const suppliersApi = Constants.API_LINK + 'suppliers/';
+
   const initialState = {
     supplierRes: null,
   };
@@ -13,7 +16,7 @@ const SuppliersState = (props) => {
   // Get Suppliers
   const getSuppliers = async () => {
     try {
-      let res = await axios.get('/api/suppliers');
+      let res = await axios.get(suppliersApi);
 
       dispatch({
         type: 'getSuppliers',
@@ -27,7 +30,7 @@ const SuppliersState = (props) => {
   // Get Supplier by id
   const getSupplierById = async (id) => {
     try {
-      let res = await axios.get('http://localhost:5000/api/suppliers/' + id);
+      let res = await axios.get(suppliersApi + id);
 
       if (res.data) {
         return res.data;

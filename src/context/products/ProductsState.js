@@ -2,8 +2,11 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import productsReducer from './productsReducer';
 import ProductsContext from './productsContext';
+import * as Constants from '../../shared/Constants';
 
 const ProductsState = (props) => {
+  const productsApi = Constants.API_LINK + 'products/';
+
   const initialState = {
     productsRes: null, // all products
     current: null, // current product being edited
@@ -22,7 +25,7 @@ const ProductsState = (props) => {
   // Get Products
   const getProducts = async () => {
     try {
-      let res = await axios.get('/api/products');
+      let res = await axios.get(productsApi);
 
       dispatch({
         type: 'getProducts',
@@ -36,7 +39,7 @@ const ProductsState = (props) => {
   // Get Product by id
   const getProductById = async (id) => {
     try {
-      let res = await axios.get('http://localhost:5000/api/products/' + id);
+      let res = await axios.get(productsApi + id);
 
       if (res.data) {
         return res.data;
@@ -49,7 +52,7 @@ const ProductsState = (props) => {
   // Add Product
   const addProduct = async (product) => {
     try {
-      const res = await axios.post('/api/products', product, config);
+      const res = await axios.post(productsApi, product, config);
 
       dispatch({
         type: 'addProduct',
@@ -63,7 +66,7 @@ const ProductsState = (props) => {
   // Delete Product
   const deleteProduct = async (id) => {
     try {
-      await axios.delete('/api/products/' + id);
+      await axios.delete(productsApi + id);
 
       dispatch({
         type: 'deleteProduct',
@@ -77,11 +80,7 @@ const ProductsState = (props) => {
   // Update Product
   const updateProduct = async (product) => {
     try {
-      const res = await axios.put(
-        '/api/products/' + product.id,
-        product,
-        config
-      );
+      const res = await axios.put(productsApi + product.id, product, config);
 
       dispatch({
         type: 'updateProduct',
