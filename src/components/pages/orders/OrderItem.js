@@ -1,38 +1,54 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import SuppliersContext from '../../../context/suppliers/suppliersContext';
+import OrdersContext from '../../../context/orders/ordersContext';
 import ProductsContext from '../../../context/products/productsContext';
+import SuppliersContext from '../../../context/suppliers/suppliersContext';
+import CategoriesContext from '../../../context/categories/categoriesContext';
 
-const ProductItem = ({ product }) => {
-  const suppliersContext = useContext(SuppliersContext);
+const OrderItem = ({ order }) => {
+  const ordersContext = useContext(OrdersContext);
   const productsContext = useContext(ProductsContext);
+  const suppliersContext = useContext(SuppliersContext);
+  const categoriesContext = useContext(CategoriesContext);
 
-  const { supplierId, name, id } = product;
+  const { shipName, id, details } = order;
+  const { setCurrent, deleteOrder, clearCurrent } = ordersContext;
+  const { getProductById } = productsContext;
   const { getSupplierById } = suppliersContext;
-  const { setCurrent, deleteProduct, clearCurrent } = productsContext;
+  const { getCategoryById } = categoriesContext;
 
+  const [product, setProduct] = useState({});
   const [supplier, setSupplier] = useState({});
+  const [category, setCategory] = useState({});
 
   useEffect(() => {
     // proper way of calling async function in useEffect
     const fetchData = async () => {
-      let tempSupplier = await getSupplierById(supplierId);
+      try {
+        let tempProduct = await getProductById(details[0].productId); // uses first in array temporarly because I do not know what the intended design was for this specific case
+        let tempSupplier = await getSupplierById(tempProduct.supplierId);
+        let tempCategory = await getCategoryById(tempProduct.categoryId);
 
-      setSupplier(tempSupplier);
+        setProduct(tempProduct);
+        setSupplier(tempSupplier);
+        setCategory(tempCategory);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchData();
-  }, [supplierId]);
+  }, [id]);
 
   const onDelete = () => {
-    deleteProduct(id);
+    deleteOrder(id);
     clearCurrent();
   };
 
   return (
     <div className='card bg-light two-block-container'>
       <div className='two-block'>
-        <h3 className='text-primary text-left'>{name} </h3>
+        <h3 className='text-primary text-left'>{shipName} </h3>
 
         <ul className='list'>
           <li>Supplier info</li>
@@ -75,44 +91,29 @@ const ProductItem = ({ product }) => {
 
       <div className='two-block'>
         <ul className='list'>
-          {supplier && supplier.address && (
+          {product && (
             <li>
-              <span className='text-primary'>Street</span>{' '}
-              {supplier.address.street}
+              <span className='text-primary'>Product Name</span> {product.name}
             </li>
           )}
 
-          {supplier && supplier.address && (
+          {product && (
             <li>
-              <span className='text-primary'>City</span> {supplier.address.city}
+              <span className='text-primary'>Quantity per unit</span>{' '}
+              {product.quantityPerUnit}
             </li>
           )}
 
-          {supplier && supplier.address && (
+          {category && (
             <li>
-              <span className='text-primary'>Region</span>{' '}
-              {supplier.address.region}
+              <span className='text-primary'>Category</span> {category.name}
             </li>
           )}
 
-          {supplier && supplier.address && (
+          {category && (
             <li>
-              <span className='text-primary'>Country</span>{' '}
-              {supplier.address.country}
-            </li>
-          )}
-
-          {supplier && supplier.address && (
-            <li>
-              <span className='text-primary'>Postal Code</span>{' '}
-              {supplier.address.postalCode}
-            </li>
-          )}
-
-          {supplier && supplier.address && (
-            <li>
-              <span className='text-primary'>Phone</span>{' '}
-              {supplier.address.phone}
+              <span className='text-primary'>Description</span>{' '}
+              {category.description}
             </li>
           )}
         </ul>
@@ -121,8 +122,8 @@ const ProductItem = ({ product }) => {
   );
 };
 
-ProductItem.propTypes = {
-  product: PropTypes.object.isRequired,
+OrderItem.propTypes = {
+  order: PropTypes.object.isRequired,
 };
 
-export default ProductItem;
+export default OrderItem;

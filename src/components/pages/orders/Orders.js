@@ -1,49 +1,49 @@
 import React, { Fragment, useContext, useEffect } from 'react';
-import ProductsContext from '../../../context/products/productsContext';
-import ProductItem from './ProductItem';
-import AddProductsForm from './AddProductsForm';
-import ProductsFilter from './ProductsFilter';
+import OrdersContext from '../../../context/orders/ordersContext';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import OrderItem from './OrderItem';
+import OrdersFilter from './OrdersFilter';
+import AddOrdersForm from './AddOrdersForm';
 
-const Products = () => {
-  const productsContext = useContext(ProductsContext);
+const Orders = () => {
+  const ordersContext = useContext(OrdersContext);
 
-  const { getProducts, productsRes, filtered } = productsContext;
+  const { getOrders, ordersRes, filteredOrders } = ordersContext;
 
   useEffect(() => {
-    getProducts();
+    getOrders();
   }, []);
 
   return (
     <div className='two-block-container'>
       <div className='two-block'>
-        <AddProductsForm />
+        <AddOrdersForm />
       </div>
 
       <div className='two-block'>
-        <ProductsFilter />
+        <OrdersFilter />
 
         <Fragment>
           {/* start here */}
-          {productsRes !== null ? (
+          {ordersRes !== null ? (
             <TransitionGroup>
-              {filtered !== null
-                ? filtered.map((product) => (
+              {filteredOrders !== null
+                ? filteredOrders.map((order) => (
                     <CSSTransition
-                      key={product.id}
+                      key={order.id}
                       timeout={1000}
                       classNames='item'
                     >
-                      <ProductItem product={product} />
+                      <OrderItem order={order} />
                     </CSSTransition>
                   ))
-                : productsRes.map((product) => (
+                : ordersRes.map((order) => (
                     <CSSTransition
-                      key={product.id}
+                      key={order.id}
                       timeout={1000}
                       classNames='item'
                     >
-                      <ProductItem product={product} />
+                      <OrderItem order={order} />
                     </CSSTransition>
                   ))}
             </TransitionGroup>
@@ -56,4 +56,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Orders;

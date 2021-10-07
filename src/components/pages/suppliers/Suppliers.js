@@ -1,49 +1,50 @@
 import React, { Fragment, useContext, useEffect } from 'react';
-import ProductsContext from '../../../context/products/productsContext';
-import ProductItem from './ProductItem';
-import AddProductsForm from './AddProductsForm';
-import ProductsFilter from './ProductsFilter';
+import SuppliersContext from '../../../context/suppliers/suppliersContext';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import SupplierItem from './SupplierItem';
+import AddSuppliersForm from './AddSuppliersForm';
+import SuppliersFilter from './SuppliersFilter';
 
-const Products = () => {
-  const productsContext = useContext(ProductsContext);
+const Suppliers = () => {
+  const suppliersContext = useContext(SuppliersContext);
 
-  const { getProducts, productsRes, filtered } = productsContext;
+  const { getSuppliers, supplierRes, filteredSuppliers } = suppliersContext;
 
   useEffect(() => {
-    getProducts();
+    getSuppliers();
+    console.log('suppliers', supplierRes);
   }, []);
 
   return (
     <div className='two-block-container'>
       <div className='two-block'>
-        <AddProductsForm />
+        <AddSuppliersForm />
       </div>
 
       <div className='two-block'>
-        <ProductsFilter />
+        <SuppliersFilter />
 
         <Fragment>
           {/* start here */}
-          {productsRes !== null ? (
+          {supplierRes !== null ? (
             <TransitionGroup>
-              {filtered !== null
-                ? filtered.map((product) => (
+              {filteredSuppliers !== null
+                ? filteredSuppliers.map((supplier) => (
                     <CSSTransition
-                      key={product.id}
+                      key={supplier.id}
                       timeout={1000}
                       classNames='item'
                     >
-                      <ProductItem product={product} />
+                      <SupplierItem supplier={supplier} />
                     </CSSTransition>
                   ))
-                : productsRes.map((product) => (
+                : supplierRes.map((supplier) => (
                     <CSSTransition
-                      key={product.id}
+                      key={supplier.id}
                       timeout={1000}
                       classNames='item'
                     >
-                      <ProductItem product={product} />
+                      <SupplierItem supplier={supplier} />
                     </CSSTransition>
                   ))}
             </TransitionGroup>
@@ -56,4 +57,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Suppliers;

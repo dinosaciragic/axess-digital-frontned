@@ -2,18 +2,15 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import productsReducer from './productsReducer';
 import ProductsContext from './productsContext';
+import * as Constants from '../../shared/Constants';
 
 const ProductsState = (props) => {
-  const initialState = {
-    productsRes: null,
-    current: null,
-    filtered: null,
-  };
+  const productsApi = Constants.API_LINK + 'products/';
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json ',
-    },
+  const initialState = {
+    productsRes: null, // all products
+    current: null, // current product being edited
+    filtered: null, // filtered products in search
   };
 
   const [state, dispatch] = useReducer(productsReducer, initialState);
@@ -21,12 +18,25 @@ const ProductsState = (props) => {
   // Get Products
   const getProducts = async () => {
     try {
-      let res = await axios.get('/api/products');
+      let res = await axios.get(productsApi);
 
       dispatch({
-        type: 'getProducts',
+        type: Constants.GET_PRODUCTS,
         payload: res.data,
       });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Get Product by id
+  const getProductById = async (id) => {
+    try {
+      let res = await axios.get(productsApi + id);
+
+      if (res.data) {
+        return res.data;
+      }
     } catch (error) {
       console.error(error);
     }
@@ -35,10 +45,14 @@ const ProductsState = (props) => {
   // Add Product
   const addProduct = async (product) => {
     try {
-      const res = await axios.post('/api/products', product, config);
+      const res = await axios.post(
+        productsApi,
+        product,
+        Constants.POST_PUT_CONFIG
+      );
 
       dispatch({
-        type: 'addProduct',
+        type: Constants.ADD_PRODUCT,
         payload: res.data,
       });
     } catch (error) {
@@ -49,10 +63,10 @@ const ProductsState = (props) => {
   // Delete Product
   const deleteProduct = async (id) => {
     try {
-      await axios.delete('/api/products/' + id);
+      await axios.delete(productsApi + id);
 
       dispatch({
-        type: 'deleteProduct',
+        type: Constants.DELETE_PRODUCT,
         payload: id,
       });
     } catch (error) {
@@ -64,13 +78,13 @@ const ProductsState = (props) => {
   const updateProduct = async (product) => {
     try {
       const res = await axios.put(
-        '/api/products/' + product.id,
+        productsApi + product.id,
         product,
-        config
+        Constants.POST_PUT_CONFIG
       );
 
       dispatch({
-        type: 'updateProduct',
+        type: Constants.UPDATE_PRODUCT,
         payload: res.data,
       });
     } catch (error) {
@@ -80,27 +94,27 @@ const ProductsState = (props) => {
 
   // Clear Products
   const clearProducts = () => {
-    dispatch({ type: 'clearProducts' });
+    dispatch({ type: Constants.CLEAR_PRODUCTS });
   };
 
   // Set Current Product
   const setCurrent = (product) => {
-    dispatch({ type: 'setCurrent', payload: product });
+    dispatch({ type: Constants.SET_CURRENT, payload: product });
   };
 
   // Clear Current Product
   const clearCurrent = () => {
-    dispatch({ type: 'clearCurrent' });
+    dispatch({ type: Constants.CLEAR_CURRENT });
   };
 
   // Filter Products
   const filterProducts = (text) => {
-    dispatch({ type: 'filterProducts', payload: text });
+    dispatch({ type: Constants.FILTER_PRODUCTS, payload: text });
   };
 
   // Clear Filter
   const clearFilter = () => {
-    dispatch({ type: 'clearFilter' });
+    dispatch({ type: Constants.CLEAR_FILTER });
   };
 
   return (
@@ -118,6 +132,7 @@ const ProductsState = (props) => {
         clearCurrent,
         filterProducts,
         clearFilter,
+        getProductById,
       }}
     >
       {props.children}

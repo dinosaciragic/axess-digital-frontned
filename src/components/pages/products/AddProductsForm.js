@@ -1,17 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ProductsContext from '../../../context/products/productsContext';
 import SuppliersContext from '../../../context/suppliers/suppliersContext';
+import CategoriesContext from '../../../context/categories/categoriesContext';
 
 const AddProductsForm = () => {
   const productsContext = useContext(ProductsContext);
   const suppliersContext = useContext(SuppliersContext);
+  const categoriesContext = useContext(CategoriesContext);
 
   const { addProduct, current, clearCurrent, updateProduct } = productsContext;
   const { getSuppliers, supplierRes } = suppliersContext;
+  const { getCategories, categoriesRes } = categoriesContext;
 
   useEffect(() => {
     getSuppliers();
-    console.log('changes', current);
+    getCategories();
+
     if (current) {
       setProduct(current);
     } else {
@@ -23,7 +27,7 @@ const AddProductsForm = () => {
         unitsInStock: 0,
         unitsOnOrder: 0,
         reorderLevel: 0,
-        discontinued: false,
+        discontinued: 'false',
         name: '',
       });
     }
@@ -37,7 +41,7 @@ const AddProductsForm = () => {
     unitsInStock: 0,
     unitsOnOrder: 0,
     reorderLevel: 0,
-    discontinued: false,
+    discontinued: 'false',
     name: '',
   });
 
@@ -45,10 +49,12 @@ const AddProductsForm = () => {
     name,
     quantityPerUnit,
     supplierId,
+    categoryId,
     unitPrice,
     unitsInStock,
     unitsOnOrder,
     reorderLevel,
+    discontinued,
   } = product || {};
 
   /* example of form but without validation */
@@ -101,14 +107,30 @@ const AddProductsForm = () => {
           required
         />
       </label>
+      {/* Supplier select menu */}
       {supplierRes && (
         <label className='text-primary'>
-          Select supplier
+          Select Supplier
           <select value={supplierId} name='supplierId' onChange={onChange}>
             {supplierRes.map((supplier) => {
               return (
                 <option key={supplier.id} value={supplier.id}>
                   {supplier.companyName}
+                </option>
+              );
+            })}
+          </select>
+        </label>
+      )}
+      {/* Categories select menu */}
+      {categoriesRes && (
+        <label className='text-primary'>
+          Select Category
+          <select value={categoryId} name='categoryId' onChange={onChange}>
+            {categoriesRes.map((category) => {
+              return (
+                <option key={category.id} value={category.id}>
+                  {category.name}
                 </option>
               );
             })}
@@ -163,6 +185,24 @@ const AddProductsForm = () => {
           required
         />
       </label>
+      {/* discontinued radio buttons */}
+      <label className='text-primary'>Discontinued</label> <br />
+      <input
+        type='radio'
+        name='discontinued'
+        value='true'
+        checked={discontinued === 'true'}
+        onChange={onChange}
+      />{' '}
+      Discontinued{' '}
+      <input
+        type='radio'
+        name='discontinued'
+        value='false'
+        checked={discontinued === 'false'}
+        onChange={onChange}
+      />{' '}
+      Not Discontinued
       {/* Submit button */}
       <div>
         <input
