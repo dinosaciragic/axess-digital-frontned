@@ -55,13 +55,30 @@ const AddOrdersForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (currentOrder === null || currentOrder === undefined) {
-      addOrder(order);
-    } else {
-      updateOrder(order);
-    }
+    if (validate()) {
+      if (currentOrder === null || currentOrder === undefined) {
+        addOrder(order);
+      } else {
+        updateOrder(order);
+      }
 
-    clearAll();
+      clearAll();
+    }
+  };
+
+  const validate = () => {
+    if (order.shipName.trim() == '') {
+      alert('Name is required');
+      return false;
+    } else if (order.details.unitPrice < 0) {
+      alert('Unit price can not be negative');
+      return false;
+    } else if (order.details.quantity < 0) {
+      alert('Quantity can not be negative');
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const clearAll = () => {

@@ -69,15 +69,48 @@ const AddSuppliersForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log('supplier', supplier);
+    if (validate()) {
+      if (currentSupplier === null || currentSupplier === undefined) {
+        addSupplier(supplier);
+      } else {
+        updateSupplier(supplier);
+      }
 
-    if (currentSupplier === null || currentSupplier === undefined) {
-      addSupplier(supplier);
-    } else {
-      updateSupplier(supplier);
+      clearAll();
     }
+  };
 
-    clearAll();
+  const validate = () => {
+    if (supplier.companyName.trim() == '') {
+      alert('Company name is required');
+      return false;
+    } else if (supplier.contactName.trim() == '') {
+      alert('Contact name is required');
+      return false;
+    } else if (supplier.contactTitle.trim() == '') {
+      alert('Contact title is required');
+      return false;
+    } else if (supplier.address.city.trim() == '') {
+      alert('City is required');
+      return false;
+    } else if (supplier.address.country.trim() == '') {
+      alert('Country is required');
+      return false;
+    } else if (supplier.address.phone.trim() == '') {
+      alert('Phone is required');
+      return false;
+    } else if (supplier.address.postalCode < 0) {
+      alert('Postal code can not be negative');
+      return false;
+    } else if (supplier.address.region.trim() == '') {
+      alert('Region is required');
+      return false;
+    } else if (supplier.address.street.trim() == '') {
+      alert('Street is required');
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const clearAll = () => {

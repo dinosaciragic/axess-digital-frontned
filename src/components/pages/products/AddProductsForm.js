@@ -62,16 +62,42 @@ const AddProductsForm = () => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
+  const validate = () => {
+    if (name.trim() == '') {
+      alert('Name is required');
+      return false;
+    } else if (quantityPerUnit.trim() == '') {
+      alert('Quanitity per Unit is required');
+      return false;
+    } else if (unitPrice < 0) {
+      alert('Unit price can not be negative');
+      return false;
+    } else if (unitsInStock < 0) {
+      alert('Units in stock can not be negative');
+      return false;
+    } else if (unitsOnOrder < 0) {
+      alert('Units in order can not be negative');
+      return false;
+    } else if (reorderLevel < 0) {
+      alert('Reorder level can not be negative');
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (current === null || current === undefined) {
-      addProduct(product);
-    } else {
-      updateProduct(product);
-    }
+    if (validate()) {
+      if (current === null || current === undefined) {
+        addProduct(product);
+      } else {
+        updateProduct(product);
+      }
 
-    clearAll();
+      clearAll();
+    }
   };
 
   const clearAll = () => {
