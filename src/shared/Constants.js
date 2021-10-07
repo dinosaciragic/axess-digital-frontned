@@ -18,6 +18,11 @@ export const CLEAR_PRODUCTS = 'clearProducts';
 export const FILTER_PRODUCTS = 'filterProducts';
 // Suppliers constants
 export const GET_SUPPLIERS = 'getSuppliers';
+export const ADD_SUPPLIER = 'addSupplier';
+export const DELETE_SUPPLIER = 'deleteSupplier';
+export const UPDATE_SUPPLIER = 'updateSupplier';
+export const CLEAR_SUPPLIERS = 'clearSuppliers';
+export const FILTER_SUPPLIERS = 'filterSuppliers';
 // Shared constants
 export const SET_CURRENT = 'setCurrent';
 export const CLEAR_CURRENT = 'clearCurrent';

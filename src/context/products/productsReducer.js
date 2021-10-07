@@ -34,7 +34,6 @@ export default (state, action) => {
         current: null,
         filtered: null,
       };
-
     case Constants.SET_CURRENT:
       return {
         ...state,

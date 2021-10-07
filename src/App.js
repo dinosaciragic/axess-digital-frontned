@@ -2,7 +2,7 @@ import './App.css';
 import Navbar from './components/layout/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/pages/Home';
-import Suppliers from './components/pages/Suppliers';
+import Suppliers from './components/pages/suppliers/Suppliers';
 import Products from './components/pages/products/Products';
 import Orders from './components/pages/orders/Orders';
 
