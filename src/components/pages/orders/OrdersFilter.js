@@ -13,6 +13,11 @@ const OrdersFilter = () => {
     }
   });
 
+  /**
+   * Triggered when user is typing and calles filter function
+   * if the saerch is empty then clearFilter is called
+   * @param e event
+   */
   const onChange = (e) => {
     if (text.current.value !== '') {
       filterOrders(e.target.value);

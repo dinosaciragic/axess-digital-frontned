@@ -3,15 +3,19 @@ import ProductsContext from '../../../context/products/productsContext';
 import OrdersContext from '../../../context/orders/ordersContext';
 
 const AddOrdersForm = () => {
+  // Supplier is added automaticaly using product
+  // Declaring contexts
   const productsContext = useContext(ProductsContext);
   const ordersContext = useContext(OrdersContext);
 
+  // extracting methods needed
   const { getProducts, productsRes } = productsContext;
   const { addOrder, currentOrder, clearCurrent, updateOrder } = ordersContext;
 
   useEffect(() => {
-    getProducts();
+    getProducts(); // get products for select
 
+    // if currentOrder is available that means its edit mode else it add mode
     if (currentOrder) {
       setOrder(currentOrder);
     } else {
@@ -27,6 +31,7 @@ const AddOrdersForm = () => {
     }
   }, [ordersContext, currentOrder]);
 
+  // Order object
   const [order, setOrder] = useState({
     shipName: '',
     details: {
@@ -37,33 +42,68 @@ const AddOrdersForm = () => {
     },
   });
 
+  /**
+   * onChange is triggered every time user types or selects
+   * @param e event when user selects or types
+   */
   const onChange = (e) => {
-    if (e.target.name == 'productId') {
+    // Example for assigning variables that are nested objects like order.details.productId etc
+    if (e.target.name === 'productId') {
       order.details.productId = parseInt(e.target.value);
       setOrder({ ...order });
-    } else if (e.target.name == 'unitPrice') {
+    } else if (e.target.name === 'unitPrice') {
       order.details.unitPrice = parseInt(e.target.value);
       setOrder({ ...order });
-    } else if (e.target.name == 'quantity') {
+    } else if (e.target.name === 'quantity') {
       order.details.quantity = parseInt(e.target.value);
       setOrder({ ...order });
     } else {
+      // Example for assigning single variaables for ex. shipName
       setOrder({ ...order, [e.target.name]: e.target.value });
     }
   };
 
+  /**
+   * This method is called when used Adds or Edits Order
+   * @param e triggered when user submits
+   */
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (currentOrder === null || currentOrder === undefined) {
-      addOrder(order);
-    } else {
-      updateOrder(order);
-    }
+    if (validate()) {
+      if (currentOrder === null || currentOrder === undefined) {
+        addOrder(order);
+      } else {
+        updateOrder(order);
+      }
 
-    clearAll();
+      // Reset form
+      clearAll();
+    }
   };
 
+  /**
+   *
+   * @returns true or false depending if validation passed
+   */
+  const validate = () => {
+    if (order.shipName.trim() === '') {
+      alert('Name is required');
+      return false;
+    } else if (order.details.unitPrice < 0) {
+      alert('Unit price can not be negative');
+      return false;
+    } else if (order.details.quantity < 0) {
+      alert('Quantity can not be negative');
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  /**
+   * Resets form
+   */
   const clearAll = () => {
     clearCurrent();
   };
