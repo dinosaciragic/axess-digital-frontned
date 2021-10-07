@@ -3,6 +3,7 @@ import SuppliersContext from '../../../context/suppliers/suppliersContext';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import SupplierItem from './SupplierItem';
 import AddSuppliersForm from './AddSuppliersForm';
+import SuppliersFilter from './SuppliersFilter';
 
 const Suppliers = () => {
   const suppliersContext = useContext(SuppliersContext);
@@ -21,7 +22,7 @@ const Suppliers = () => {
       </div>
 
       <div className='two-block'>
-        {/*  <ProductsFilter /> */}
+        <SuppliersFilter />
 
         <Fragment>
           {/* start here */}
