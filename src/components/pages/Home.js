@@ -14,7 +14,7 @@ const Home = () => {
 
       <h4>For each page you can:</h4>
 
-      <ul style={{ listStyle: 'initial', marginLeft: '30px' }}>
+      <ul className='home-class'>
         <li>View items available from the dabase</li>
         <li>Add item</li>
         <li>Edit item</li>

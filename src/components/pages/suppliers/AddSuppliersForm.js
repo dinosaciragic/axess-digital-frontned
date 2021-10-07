@@ -7,6 +7,7 @@ const AddSuppliersForm = () => {
   const { addSupplier, currentSupplier, clearCurrent, updateSupplier } =
     suppliersContext;
 
+  // if current is available that means its edit mode else it add mode
   useEffect(() => {
     if (currentSupplier) {
       setSupplier(currentSupplier);
@@ -27,6 +28,7 @@ const AddSuppliersForm = () => {
     }
   }, [suppliersContext, currentSupplier]);
 
+  // Order supplier
   const [supplier, setSupplier] = useState({
     companyName: '',
     contactName: '',
@@ -41,24 +43,28 @@ const AddSuppliersForm = () => {
     },
   });
 
+  /**
+   * onChange is triggered every time user types or selects
+   * @param e event when user selects or types
+   */
   const onChange = (e) => {
     // should change to constants
-    if (e.target.name == 'city') {
+    if (e.target.name === 'city') {
       supplier.address.city = e.target.value;
       setSupplier({ ...supplier });
-    } else if (e.target.name == 'country') {
+    } else if (e.target.name === 'country') {
       supplier.address.country = e.target.value;
       setSupplier({ ...supplier });
-    } else if (e.target.name == 'postalCode') {
+    } else if (e.target.name === 'postalCode') {
       supplier.address.postalCode = parseInt(e.target.value);
       setSupplier({ ...supplier });
-    } else if (e.target.name == 'phone') {
+    } else if (e.target.name === 'phone') {
       supplier.address.phone = e.target.value;
       setSupplier({ ...supplier });
-    } else if (e.target.name == 'region') {
+    } else if (e.target.name === 'region') {
       supplier.address.region = e.target.value;
       setSupplier({ ...supplier });
-    } else if (e.target.name == 'street') {
+    } else if (e.target.name === 'street') {
       supplier.address.street = e.target.value;
       setSupplier({ ...supplier });
     } else {
@@ -66,6 +72,10 @@ const AddSuppliersForm = () => {
     }
   };
 
+  /**
+   * This method is called when used Adds or Edits
+   * @param e triggered when user submits
+   */
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -80,32 +90,36 @@ const AddSuppliersForm = () => {
     }
   };
 
+  /**
+   *
+   * @returns true or false depending if validation passed
+   */
   const validate = () => {
-    if (supplier.companyName.trim() == '') {
+    if (supplier.companyName.trim() === '') {
       alert('Company name is required');
       return false;
-    } else if (supplier.contactName.trim() == '') {
+    } else if (supplier.contactName.trim() === '') {
       alert('Contact name is required');
       return false;
-    } else if (supplier.contactTitle.trim() == '') {
+    } else if (supplier.contactTitle.trim() === '') {
       alert('Contact title is required');
       return false;
-    } else if (supplier.address.city.trim() == '') {
+    } else if (supplier.address.city.trim() === '') {
       alert('City is required');
       return false;
-    } else if (supplier.address.country.trim() == '') {
+    } else if (supplier.address.country.trim() === '') {
       alert('Country is required');
       return false;
-    } else if (supplier.address.phone.trim() == '') {
+    } else if (supplier.address.phone.trim() === '') {
       alert('Phone is required');
       return false;
     } else if (supplier.address.postalCode < 0) {
       alert('Postal code can not be negative');
       return false;
-    } else if (supplier.address.region.trim() == '') {
+    } else if (supplier.address.region.trim() === '') {
       alert('Region is required');
       return false;
-    } else if (supplier.address.street.trim() == '') {
+    } else if (supplier.address.street.trim() === '') {
       alert('Street is required');
       return false;
     } else {
@@ -113,6 +127,9 @@ const AddSuppliersForm = () => {
     }
   };
 
+  /**
+   * Resets form
+   */
   const clearAll = () => {
     clearCurrent();
   };

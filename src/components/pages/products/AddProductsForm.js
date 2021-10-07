@@ -4,18 +4,21 @@ import SuppliersContext from '../../../context/suppliers/suppliersContext';
 import CategoriesContext from '../../../context/categories/categoriesContext';
 
 const AddProductsForm = () => {
+  // Declaring contexts
   const productsContext = useContext(ProductsContext);
   const suppliersContext = useContext(SuppliersContext);
   const categoriesContext = useContext(CategoriesContext);
 
+  // extracting methods needed
   const { addProduct, current, clearCurrent, updateProduct } = productsContext;
   const { getSuppliers, supplierRes } = suppliersContext;
   const { getCategories, categoriesRes } = categoriesContext;
 
   useEffect(() => {
-    getSuppliers();
-    getCategories();
+    getSuppliers(); // Get suppliers for select
+    getCategories(); // Get categories for select
 
+    // if current is available that means its edit mode else it add mode
     if (current) {
       setProduct(current);
     } else {
@@ -33,6 +36,7 @@ const AddProductsForm = () => {
     }
   }, [productsContext, current]);
 
+  // Order product
   const [product, setProduct] = useState({
     supplierId: 0,
     categoryId: 0,
@@ -45,6 +49,7 @@ const AddProductsForm = () => {
     name: '',
   });
 
+  // Experimenting with extraction
   const {
     name,
     quantityPerUnit,
@@ -57,16 +62,23 @@ const AddProductsForm = () => {
     discontinued,
   } = product || {};
 
-  /* example of form but without validation */
+  /**
+   * onChange is triggered every time user types or selects
+   * @param e event when user selects or types
+   */
   const onChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
+  /**
+   *
+   * @returns true or false depending if validation passed
+   */
   const validate = () => {
-    if (name.trim() == '') {
+    if (name.trim() === '') {
       alert('Name is required');
       return false;
-    } else if (quantityPerUnit.trim() == '') {
+    } else if (quantityPerUnit.trim() === '') {
       alert('Quanitity per Unit is required');
       return false;
     } else if (unitPrice < 0) {
@@ -86,6 +98,10 @@ const AddProductsForm = () => {
     }
   };
 
+  /**
+   * This method is called when used Adds or Edits
+   * @param e triggered when user submits
+   */
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -100,6 +116,9 @@ const AddProductsForm = () => {
     }
   };
 
+  /**
+   * Resets form
+   */
   const clearAll = () => {
     clearCurrent();
   };

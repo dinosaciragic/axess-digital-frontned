@@ -12,7 +12,6 @@ const Suppliers = () => {
 
   useEffect(() => {
     getSuppliers();
-    console.log('suppliers', supplierRes);
   }, []);
 
   return (

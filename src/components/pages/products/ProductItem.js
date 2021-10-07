@@ -24,6 +24,9 @@ const ProductItem = ({ product }) => {
     fetchData();
   }, [supplierId]);
 
+  /**
+   * When delete is clicked order is deleted and current is reset
+   */
   const onDelete = () => {
     deleteProduct(id);
     clearCurrent();

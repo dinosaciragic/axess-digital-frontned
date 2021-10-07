@@ -22,13 +22,14 @@ const OrderItem = ({ order }) => {
   const [category, setCategory] = useState({});
 
   useEffect(() => {
-    // proper way of calling async function in useEffect
+    // fetchData is the proper way of calling async function in useEffect
     const fetchData = async () => {
       try {
         let tempProduct = await getProductById(details[0].productId); // uses first in array temporarly because I do not know what the intended design was for this specific case
-        let tempSupplier = await getSupplierById(tempProduct.supplierId);
-        let tempCategory = await getCategoryById(tempProduct.categoryId);
+        let tempSupplier = await getSupplierById(tempProduct.supplierId); // gets supplier for product
+        let tempCategory = await getCategoryById(tempProduct.categoryId); // gets category for product
 
+        // Sets state for each product in order to display all data
         setProduct(tempProduct);
         setSupplier(tempSupplier);
         setCategory(tempCategory);
@@ -40,6 +41,9 @@ const OrderItem = ({ order }) => {
     fetchData();
   }, [id]);
 
+  /**
+   * When delete is clicked order is deleted and current is reset
+   */
   const onDelete = () => {
     deleteOrder(id);
     clearCurrent();
@@ -78,7 +82,7 @@ const OrderItem = ({ order }) => {
           <button
             className='btn btn-dark btn-sm'
             onClick={() => {
-              setCurrent(product);
+              setCurrent(order);
             }}
           >
             Edit
