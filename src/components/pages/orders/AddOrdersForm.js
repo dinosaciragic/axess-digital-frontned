@@ -55,8 +55,6 @@ const AddOrdersForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log('order', order);
-
     if (currentOrder === null || currentOrder === undefined) {
       addOrder(order);
     } else {
